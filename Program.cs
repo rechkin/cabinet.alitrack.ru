@@ -139,5 +139,11 @@ namespace cabinet.alitrack.ru
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(3600));
             wait.Until(driver => driver.FindElement(By.XPath(xPath)));
         }
+
+        static void WaitForVisibleXPath(RemoteWebDriver browser, string xPath)
+        {
+            var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(3600));
+            wait.Until(driver => driver.FindElement(By.XPath(xPath)).Displayed);
+        }
     }
 }
