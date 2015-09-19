@@ -106,7 +106,7 @@ namespace cabinet.alitrack.ru
 
                         #region Send report
                         string report = cabinet.alitrack.ru.Properties.Resources.Template.Replace("{NEW}", newItems.ToString());
-                        SmtpClient client = new SmtpClient("localhost");
+                        SmtpClient client = new SmtpClient(cabinet.alitrack.ru.Properties.Settings.Default.SMTP);
                         MailAddress from = new MailAddress(cabinet.alitrack.ru.Properties.Settings.Default.EmailFrom);
                         MailAddress to = new MailAddress(cabinet.alitrack.ru.Properties.Settings.Default.EmailTo);
                         MailMessage message = new MailMessage(from, to);
@@ -120,7 +120,7 @@ namespace cabinet.alitrack.ru
             }
             catch(Exception e)
             {
-                SmtpClient client = new SmtpClient("localhost");
+                SmtpClient client = new SmtpClient(cabinet.alitrack.ru.Properties.Settings.Default.SMTP);
                 MailAddress from = new MailAddress(cabinet.alitrack.ru.Properties.Settings.Default.EmailFrom);
                 MailAddress to = new MailAddress(cabinet.alitrack.ru.Properties.Settings.Default.EmailTo);
                 MailMessage message = new MailMessage(from, to);
@@ -134,6 +134,7 @@ namespace cabinet.alitrack.ru
             }
         }
 
+        #region Helpers
         static void WaitForCompleteXPath(RemoteWebDriver browser, string xPath)
         {
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(3600));
@@ -145,5 +146,6 @@ namespace cabinet.alitrack.ru
             var wait = new WebDriverWait(browser, TimeSpan.FromSeconds(3600));
             wait.Until(driver => driver.FindElement(By.XPath(xPath)).Displayed);
         }
+        #endregion
     }
 }
